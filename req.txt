@@ -1,0 +1,45 @@
+Add this:
+
+streamlit
+groq
+python-dotenv
+
+Better production version with fixed versions:
+
+streamlit==1.45.1
+groq==0.24.0
+python-dotenv==1.0.1
+
+Also fix your API key code. Your current line is incorrect and unsafe.
+
+Replace this:
+
+client = Groq(api_key="GROQ_API_KEY = "gsk_xTy1A3...")
+
+With this:
+
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+Then create api.env:
+
+GROQ_API_KEY=your_actual_groq_key
+
+And .gitignore:
+
+api.env
+__pycache__/
+
+Install requirements:
+
+pip install -r requirements.txt
+
+Run app:
+
+streamlit run app.py
+
+
